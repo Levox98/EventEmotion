@@ -1,4 +1,4 @@
-package com.eventemotion.ui.theme
+package com.eventemotion.base_ui.theme
 
 import androidx.compose.ui.graphics.Color
 

@@ -1,4 +1,4 @@
-package com.eventemotion.ui.theme
+package com.eventemotion.base_ui.theme
 
 import android.app.Activity
 import android.os.Build
