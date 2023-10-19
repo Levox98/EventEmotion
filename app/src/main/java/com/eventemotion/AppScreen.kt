@@ -15,7 +15,7 @@ fun AppScreen() {
     AppTheme {
         NavHost(navController = navController, startDestination = "MainRoot") {
             addMain(navController)
-            addEvent()
+            addEvent(navController)
         }
     }
 }

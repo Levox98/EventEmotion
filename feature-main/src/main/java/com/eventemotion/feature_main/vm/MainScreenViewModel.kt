@@ -53,16 +53,7 @@ class MainScreenViewModel @Inject constructor(
             getEventEntriesFlowUseCase().collect {
                 withContext(Dispatchers.Main) {
                     viewState = viewState.copy(
-                        isError = false, loading = false, eventEntries = listOf(
-                            EventEntry(name = "first", feeling = "feel", thought = "think"),
-                            EventEntry(name = "second", feeling = "feels", thought = "thought"),
-                            EventEntry(name = "first", feeling = "feel", thought = "think"),
-                            EventEntry(name = "second", feeling = "feels", thought = "thought"),
-                            EventEntry(name = "first", feeling = "feel", thought = "think"),
-                            EventEntry(name = "second", feeling = "feels", thought = "thought"),
-                            EventEntry(name = "first", feeling = "feel", thought = "think"),
-                            EventEntry(name = "second", feeling = "feels", thought = "thought")
-                        )
+                        isError = false, loading = false, eventEntries = it
                     )
                 }
             }
