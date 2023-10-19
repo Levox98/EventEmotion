@@ -13,7 +13,7 @@ pluginManagement {
                 useVersion("1.9.10")
             }
             if(requested.id.id.startsWith("com.google.dagger")) {
-                useVersion("2.47")
+                useVersion("2.48")
             }
         }
     }

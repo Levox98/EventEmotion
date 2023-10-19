@@ -12,7 +12,11 @@ fun Date.toHumanString(): String {
     var month = calendar.get(Calendar.MONTH)
     val year = calendar.get(Calendar.YEAR)
 
+    val hours = calendar.get(Calendar.HOUR_OF_DAY)
+    val minutes = calendar.get(Calendar.MINUTE)
+    val seconds = calendar.get(Calendar.SECOND)
+
     month++
 
-    return "${if (day < 10) "0$day" else "$day" }.${if (month < 10) "0$month" else "$month" }.${year}"
+    return "${if (day < 10) "0$day" else "$day" }.${if (month < 10) "0$month" else "$month" }.${year} | $hours:$minutes:$seconds"
 }

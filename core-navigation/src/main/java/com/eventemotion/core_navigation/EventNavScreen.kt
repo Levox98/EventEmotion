@@ -1,5 +1,6 @@
 package com.eventemotion.core_navigation
 
+
 sealed class EventNavScreen {
     abstract val route: String
 
@@ -8,8 +9,8 @@ sealed class EventNavScreen {
             get() = "EventRoot"
     }
 
-    data object Event : EventNavScreen() {
+    data object CreateEvent : EventNavScreen() {
         override val route: String
-            get() = "Event"
+            get() = "CreateEvent"
     }
 }
