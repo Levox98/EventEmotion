@@ -1,12 +1,10 @@
 package com.eventemotion.feature_main
 
-import androidx.compose.runtime.remember
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.eventemotion.core_navigation.EventNavScreen
 import com.eventemotion.core_navigation.MainNavScreen
 import com.eventemotion.feature_main.screen.MainScreen
 
@@ -20,11 +18,7 @@ fun NavGraphBuilder.addMain(navController: NavHostController) {
         ) {
             MainScreen(
                 vm = hiltViewModel(),
-                goToEventEntryScreen = remember {
-                    { eventEntry ->
-                        navController.navigate(EventNavScreen.Event.createRoute(eventEntry?.date))
-                    }
-                }
+                navController = navController
             )
         }
     }

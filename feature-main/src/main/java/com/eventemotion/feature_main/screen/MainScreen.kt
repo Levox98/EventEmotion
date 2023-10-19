@@ -26,6 +26,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import com.eventemotion.core_navigation.EventNavScreen
 import com.eventemotion.data_event.domain.entity.EventEntry
 import com.eventemotion.feature_main.vm.MainScreenAction
 import com.eventemotion.feature_main.vm.MainScreenEvent
@@ -34,7 +36,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
 
 @Composable
-fun MainScreen(vm: MainScreenViewModel, goToEventEntryScreen: (EventEntry?) -> Unit) {
+fun MainScreen(vm: MainScreenViewModel, navController: NavHostController) {
 
     val viewStates = vm.viewStates.collectAsState()
     val viewActions = vm.viewActions
@@ -44,8 +46,8 @@ fun MainScreen(vm: MainScreenViewModel, goToEventEntryScreen: (EventEntry?) -> U
     LaunchedEffect(viewActions) {
         viewActions.onEach { action ->
             when (action) {
-                is MainScreenAction.GoToEventEntryAction -> {
-                    goToEventEntryScreen(action.eventEntry)
+                is MainScreenAction.GoToCreateEventEntryAction -> {
+                    navController.navigate(EventNavScreen.CreateEvent.route)
                 }
             }
         }.collect()
@@ -56,7 +58,7 @@ fun MainScreen(vm: MainScreenViewModel, goToEventEntryScreen: (EventEntry?) -> U
             AddEventButton(
                 onClick = remember {
                     {
-                        vm.obtainEvent(MainScreenEvent.GoToEntryEvent(null))
+                        vm.obtainEvent(MainScreenEvent.GoToCreateEntryEvent)
                     }
                 }
             )
@@ -70,16 +72,21 @@ fun MainScreen(vm: MainScreenViewModel, goToEventEntryScreen: (EventEntry?) -> U
             ) {
                 itemsIndexed(
                     items = entries,
-                    key = { _, item -> item.date }
+                    key = { index, item -> "${item.date}/$index" }
                 ) { index, item ->
                     EventCard(
+                        modifier = Modifier.fillMaxWidth(),
                         data = item,
                         onClick = remember(item) {
                             {
-                                vm.obtainEvent(MainScreenEvent.GoToEntryEvent(it))
+                                vm.obtainEvent(MainScreenEvent.GoToCreateEntryEvent)
                             }
                         }
                     )
+
+                    if (index < entries.lastIndex) {
+                        Spacer(modifier = Modifier.requiredHeight(10.dp))
+                    }
                 }
             }
         }
@@ -104,10 +111,11 @@ private fun EventCard(
                     }
                 }
             )
-            .border(1.dp, MaterialTheme.colorScheme.onBackground, MaterialTheme.shapes.large),
-        shape = MaterialTheme.shapes.large
+            .border(1.dp, MaterialTheme.colorScheme.onBackground, MaterialTheme.shapes.small),
+        shape = MaterialTheme.shapes.small
     ) {
         Column(
+            modifier = Modifier.padding(10.dp).padding(start = 10.dp),
             horizontalAlignment = Alignment.Start
         ) {
             Text(
@@ -118,6 +126,16 @@ private fun EventCard(
             Text(
                 text = data.name,
                 style = MaterialTheme.typography.headlineMedium
+            )
+            Spacer(modifier = Modifier.requiredHeight(5.dp))
+            Text(
+                text = data.feeling,
+                style = MaterialTheme.typography.headlineSmall
+            )
+            Spacer(modifier = Modifier.requiredHeight(5.dp))
+            Text(
+                text = data.thought,
+                style = MaterialTheme.typography.bodyMedium
             )
         }
     }

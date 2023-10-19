@@ -1,6 +1,5 @@
 package com.eventemotion.core_navigation
 
-import java.util.Date
 
 sealed class EventNavScreen {
     abstract val route: String
@@ -10,12 +9,8 @@ sealed class EventNavScreen {
             get() = "EventRoot"
     }
 
-    data object Event : EventNavScreen() {
-        const val EVENT_DATE = "eventDate"
-
+    data object CreateEvent : EventNavScreen() {
         override val route: String
-            get() = "Event/{$EVENT_DATE}"
-
-        fun createRoute(eventDate: Date?) = "Event/${eventDate?.time}"
+            get() = "CreateEvent"
     }
 }

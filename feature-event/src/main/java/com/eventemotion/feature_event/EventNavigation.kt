@@ -5,17 +5,17 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.eventemotion.core_navigation.EventNavScreen
-import com.eventemotion.feature_event.screen.EventScreen
+import com.eventemotion.feature_event.screen.CreateEventScreen
 
 fun NavGraphBuilder.addEvent() {
     navigation(
-        startDestination = EventNavScreen.Event.route,
+        startDestination = EventNavScreen.CreateEvent.route,
         route = EventNavScreen.Root.route
     ) {
         composable(
-            route = EventNavScreen.Event.route
+            route = EventNavScreen.CreateEvent.route
         ) {
-            EventScreen(vm = hiltViewModel())
+            CreateEventScreen(vm = hiltViewModel())
         }
     }
 }

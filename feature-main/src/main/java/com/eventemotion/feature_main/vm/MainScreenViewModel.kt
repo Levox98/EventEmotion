@@ -19,12 +19,12 @@ data class MainScreenState(
 )
 
 sealed class MainScreenAction : BaseAction() {
-    class GoToEventEntryAction(val eventEntry: EventEntry?) : MainScreenAction()
+    data object GoToCreateEventEntryAction : MainScreenAction()
 }
 
 sealed class MainScreenEvent {
     data object GetEntriesFlowEvent : MainScreenEvent()
-    class GoToEntryEvent(val entry: EventEntry?) : MainScreenEvent()
+    data object GoToCreateEntryEvent : MainScreenEvent()
     class DeleteEntryEvent(val entry: EventEntry) : MainScreenEvent()
 }
 
@@ -43,9 +43,7 @@ class MainScreenViewModel @Inject constructor(
     override fun obtainEvent(viewEvent: MainScreenEvent) {
         when (viewEvent) {
             is MainScreenEvent.GetEntriesFlowEvent -> getEventEntriesFlow()
-            is MainScreenEvent.GoToEntryEvent -> {
-                sendAction(MainScreenAction.GoToEventEntryAction(viewEvent.entry))
-            }
+            is MainScreenEvent.GoToCreateEntryEvent -> sendAction(MainScreenAction.GoToCreateEventEntryAction)
             is MainScreenEvent.DeleteEntryEvent -> deleteEventEntry(viewEvent.entry)
         }
     }
@@ -54,7 +52,14 @@ class MainScreenViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             getEventEntriesFlowUseCase().collect {
                 withContext(Dispatchers.Main) {
-                    viewState = viewState.copy(isError = false, loading = false, eventEntries = it)
+                    viewState = viewState.copy(
+                        isError = false, loading = false, eventEntries = listOf(
+                            EventEntry(name = "first", feeling = "feel", thought = "think"),
+                            EventEntry(name = "second", feeling = "feels", thought = "thought"),
+                            EventEntry(name = "first", feeling = "feel", thought = "think"),
+                            EventEntry(name = "second", feeling = "feels", thought = "thought")
+                        )
+                    )
                 }
             }
         }
