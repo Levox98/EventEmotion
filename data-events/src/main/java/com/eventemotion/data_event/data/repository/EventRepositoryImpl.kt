@@ -16,7 +16,7 @@ class EventRepositoryImpl @Inject constructor(
         eventsDao.addEventEntry(eventEntry.toData())
     }
 
-    override suspend fun deleteEvent(date: Date) = eventsDao.deleteEventEntry(date)
+    override suspend fun deleteEvent(date: Date) = eventsDao.deleteEventEntry(date.time)
 
     override suspend fun getAllEventsFlow() = eventsDao.getEventEntriesFlow().map { list -> list.map { it.toDomain() } }
 }

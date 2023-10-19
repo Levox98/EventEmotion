@@ -4,6 +4,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.eventemotion.core_navigation.EventNavScreen
+import com.eventemotion.feature_event.screen.EventScreen
 
 fun NavGraphBuilder.addEvent() {
     navigation(
@@ -13,7 +14,7 @@ fun NavGraphBuilder.addEvent() {
         composable(
             route = EventNavScreen.Event.route
         ) {
-            //TODO: Add EventScreen composable here
+            EventScreen()
         }
     }
 }
