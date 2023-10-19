@@ -1,5 +1,6 @@
 package com.eventemotion.feature_event
 
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
@@ -14,7 +15,7 @@ fun NavGraphBuilder.addEvent() {
         composable(
             route = EventNavScreen.Event.route
         ) {
-            EventScreen()
+            EventScreen(vm = hiltViewModel())
         }
     }
 }

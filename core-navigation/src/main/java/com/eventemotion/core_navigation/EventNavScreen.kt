@@ -16,6 +16,6 @@ sealed class EventNavScreen {
         override val route: String
             get() = "Event/{$EVENT_DATE}"
 
-        fun createRoute(eventDate: Date) = "Event/${eventDate}"
+        fun createRoute(eventDate: Date?) = "Event/${eventDate?.time}"
     }
 }

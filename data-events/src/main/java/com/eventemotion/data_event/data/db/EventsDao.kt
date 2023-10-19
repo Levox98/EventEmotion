@@ -13,6 +13,9 @@ interface EventsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addEventEntry(eventEntryDataEntity: EventEntryDataEntity)
 
+    @Query("SELECT * FROM events WHERE date = :date")
+    fun getEventEntry(date: Long): EventEntryDataEntity
+
     @Query("SELECT * FROM events")
     fun getEventEntriesFlow(): Flow<List<EventEntryDataEntity>>
 

@@ -22,11 +22,7 @@ fun NavGraphBuilder.addMain(navController: NavHostController) {
                 vm = hiltViewModel(),
                 goToEventEntryScreen = remember {
                     { eventEntry ->
-                        if (eventEntry == null) {
-                            navController.navigate(EventNavScreen.Event.route)
-                        } else {
-                            navController.navigate(EventNavScreen.Event.createRoute(eventEntry.date))
-                        }
+                        navController.navigate(EventNavScreen.Event.createRoute(eventEntry?.date))
                     }
                 }
             )
