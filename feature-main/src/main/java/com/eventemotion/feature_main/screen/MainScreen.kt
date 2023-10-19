@@ -30,6 +30,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.eventemotion.common.toHumanString
 import com.eventemotion.core_navigation.EventNavScreen
 import com.eventemotion.data_event.domain.entity.EventEntry
 import com.eventemotion.feature_main.vm.MainScreenAction
@@ -140,7 +141,7 @@ private fun EventCard(
                 horizontalAlignment = Alignment.Start
             ) {
                 Text(
-                    text = "${data.date}",
+                    text = data.date.toHumanString(),
                     style = MaterialTheme.typography.labelLarge
                 )
                 Spacer(modifier = Modifier.requiredHeight(10.dp))
