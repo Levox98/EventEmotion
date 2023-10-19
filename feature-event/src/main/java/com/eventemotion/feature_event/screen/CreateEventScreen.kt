@@ -3,6 +3,7 @@ package com.eventemotion.feature_event.screen
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
@@ -42,7 +43,7 @@ fun CreateEventScreen(vm: CreateEventScreenViewModel, navController: NavHostCont
     LaunchedEffect(viewActions) {
         viewActions.onEach { action ->
             when (action) {
-                is CreateEventScreenAction.CreateCreateEventEntryAction -> {
+                is CreateEventScreenAction.CreateEventEntryAction -> {
                     vm.createEventEntry()
                     navController.popBackStack()
                 }
@@ -54,13 +55,17 @@ fun CreateEventScreen(vm: CreateEventScreenViewModel, navController: NavHostCont
         modifier = Modifier.imePadding(),
         floatingActionButton = {
             SaveEntryButton(
-                onClick = remember {{
-                    vm.obtainEvent(CreateEventScreenEvent.CreateCreateEventEntryEvent)
-                }}
+                onClick = remember {
+                    {
+                        vm.obtainEvent(CreateEventScreenEvent.CreateEventEntryEvent)
+                    }
+                }
             )
         }
     ) { paddingValues ->
-        LazyColumn {
+        LazyColumn(
+            modifier = Modifier.fillMaxWidth()
+        ) {
             item {
                 TextField(
                     modifier = Modifier.padding(top = paddingValues.calculateTopPadding()),
@@ -96,7 +101,7 @@ fun CreateEventScreen(vm: CreateEventScreenViewModel, navController: NavHostCont
 private fun SaveEntryButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit
-    ) {
+) {
 
     Surface(
         modifier = modifier

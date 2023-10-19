@@ -53,7 +53,9 @@ class MainScreenViewModel @Inject constructor(
             getEventEntriesFlowUseCase().collect {
                 withContext(Dispatchers.Main) {
                     viewState = viewState.copy(
-                        isError = false, loading = false, eventEntries = it
+                        isError = false,
+                        loading = false,
+                        eventEntries = it.sortedByDescending { it.date }
                     )
                 }
             }
@@ -62,9 +64,7 @@ class MainScreenViewModel @Inject constructor(
 
     private fun deleteEventEntry(eventEntry: EventEntry) {
         viewModelScope.launch(Dispatchers.IO) {
-            withContext(Dispatchers.Main) {
-                deleteEventEntryUseCase(eventEntry.date)
-            }
+            deleteEventEntryUseCase(eventEntry.date)
         }
     }
 }

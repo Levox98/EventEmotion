@@ -3,8 +3,10 @@ package com.eventemotion.feature_main.screen
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -13,6 +15,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -89,6 +92,11 @@ fun MainScreen(vm: MainScreenViewModel, navController: NavHostController) {
                             {
                                 //vm.obtainEvent(MainScreenEvent.GoToCreateEntryEvent)
                             }
+                        },
+                        onDeleteClick = remember(item) {
+                            {
+                                vm.obtainEvent(MainScreenEvent.DeleteEntryEvent(item))
+                            }
                         }
                     )
 
@@ -105,7 +113,8 @@ fun MainScreen(vm: MainScreenViewModel, navController: NavHostController) {
 private fun EventCard(
     modifier: Modifier = Modifier,
     data: EventEntry,
-    onClick: (EventEntry) -> Unit
+    onClick: (EventEntry) -> Unit,
+    onDeleteClick: () -> Unit
 ) {
     Surface(
         modifier = modifier
@@ -122,28 +131,46 @@ private fun EventCard(
             .border(1.dp, MaterialTheme.colorScheme.onBackground, MaterialTheme.shapes.small),
         shape = MaterialTheme.shapes.small
     ) {
-        Column(
-            modifier = Modifier.padding(10.dp).padding(start = 10.dp),
-            horizontalAlignment = Alignment.Start
+        Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(
-                text = "${data.date}",
-                style = MaterialTheme.typography.labelLarge
-            )
-            Spacer(modifier = Modifier.requiredHeight(10.dp))
-            Text(
-                text = data.name,
-                style = MaterialTheme.typography.headlineMedium
-            )
-            Spacer(modifier = Modifier.requiredHeight(5.dp))
-            Text(
-                text = data.feeling,
-                style = MaterialTheme.typography.headlineSmall
-            )
-            Spacer(modifier = Modifier.requiredHeight(5.dp))
-            Text(
-                text = data.thought,
-                style = MaterialTheme.typography.bodyMedium
+            Column(
+                modifier = Modifier.padding(10.dp).padding(start = 10.dp),
+                horizontalAlignment = Alignment.Start
+            ) {
+                Text(
+                    text = "${data.date}",
+                    style = MaterialTheme.typography.labelLarge
+                )
+                Spacer(modifier = Modifier.requiredHeight(10.dp))
+                Text(
+                    text = data.name,
+                    style = MaterialTheme.typography.headlineMedium
+                )
+                Spacer(modifier = Modifier.requiredHeight(5.dp))
+                Text(
+                    text = data.feeling,
+                    style = MaterialTheme.typography.headlineSmall
+                )
+                Spacer(modifier = Modifier.requiredHeight(5.dp))
+                Text(
+                    text = data.thought,
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
+
+            Icon(
+                modifier = Modifier
+                    .padding(end = 10.dp)
+                    .clickable(
+                        interactionSource = remember { MutableInteractionSource() },
+                        indication = rememberRipple(),
+                        enabled = true,
+                        onClick = onDeleteClick
+                    ),
+                imageVector = Icons.Default.Delete,
+                contentDescription = null
             )
         }
     }
