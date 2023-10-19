@@ -57,6 +57,10 @@ class MainScreenViewModel @Inject constructor(
                             EventEntry(name = "first", feeling = "feel", thought = "think"),
                             EventEntry(name = "second", feeling = "feels", thought = "thought"),
                             EventEntry(name = "first", feeling = "feel", thought = "think"),
+                            EventEntry(name = "second", feeling = "feels", thought = "thought"),
+                            EventEntry(name = "first", feeling = "feel", thought = "think"),
+                            EventEntry(name = "second", feeling = "feels", thought = "thought"),
+                            EventEntry(name = "first", feeling = "feel", thought = "think"),
                             EventEntry(name = "second", feeling = "feels", thought = "thought")
                         )
                     )
