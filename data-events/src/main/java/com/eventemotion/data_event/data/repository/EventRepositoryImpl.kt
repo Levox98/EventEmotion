@@ -6,6 +6,7 @@ import com.eventemotion.data_event.data.mapper.toDomain
 import com.eventemotion.data_event.domain.entity.EventEntry
 import com.eventemotion.data_event.domain.repository.EventRepository
 import kotlinx.coroutines.flow.map
+import java.util.Date
 import javax.inject.Inject
 
 class EventRepositoryImpl @Inject constructor(
@@ -15,9 +16,7 @@ class EventRepositoryImpl @Inject constructor(
         eventsDao.addEventEntry(eventEntry.toData())
     }
 
-    override fun deleteEvent() {
-        TODO("Not yet implemented")
-    }
+    override suspend fun deleteEvent(date: Date) = eventsDao.deleteEventEntry(date)
 
     override suspend fun getAllEventsFlow() = eventsDao.getEventEntriesFlow().map { list -> list.map { it.toDomain() } }
 }
