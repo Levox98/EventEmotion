@@ -65,7 +65,7 @@ fun MainScreen(vm: MainScreenViewModel, navController: NavHostController) {
         }
     ) { paddingValues ->
         Box(
-            modifier = Modifier.padding(paddingValues)
+            modifier = Modifier
         ) {
             LazyColumn(
                 modifier = Modifier.fillMaxWidth()
@@ -75,7 +75,15 @@ fun MainScreen(vm: MainScreenViewModel, navController: NavHostController) {
                     key = { index, item -> "${item.date}/$index" }
                 ) { index, item ->
                     EventCard(
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .then(
+                                when (index) {
+                                    0 -> Modifier.padding(top = paddingValues.calculateTopPadding())
+                                    entries.lastIndex -> Modifier.padding(bottom = paddingValues.calculateBottomPadding())
+                                    else -> Modifier
+                                }
+                            ),
                         data = item,
                         onClick = remember(item) {
                             {
