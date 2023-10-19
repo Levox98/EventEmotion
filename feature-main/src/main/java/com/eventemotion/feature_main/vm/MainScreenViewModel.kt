@@ -1,6 +1,5 @@
 package com.eventemotion.feature_main.vm
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.eventemotion.common.BaseAction
 import com.eventemotion.common.BaseViewModel
@@ -45,7 +44,6 @@ class MainScreenViewModel @Inject constructor(
         when (viewEvent) {
             is MainScreenEvent.GetEntriesFlowEvent -> getEventEntriesFlow()
             is MainScreenEvent.GoToEntryEvent -> {
-                Log.d("vm_actions_vm", "go to entry")
                 sendAction(MainScreenAction.GoToEventEntryAction(viewEvent.entry))
             }
             is MainScreenEvent.DeleteEntryEvent -> deleteEventEntry(viewEvent.entry)

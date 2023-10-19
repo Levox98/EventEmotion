@@ -1,6 +1,5 @@
 package com.eventemotion.feature_main.screen
 
-import android.util.Log
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -46,7 +45,6 @@ fun MainScreen(vm: MainScreenViewModel, goToEventEntryScreen: (EventEntry?) -> U
         viewActions.onEach { action ->
             when (action) {
                 is MainScreenAction.GoToEventEntryAction -> {
-                    Log.d("vm_actions", "$action")
                     goToEventEntryScreen(action.eventEntry)
                 }
             }
@@ -58,7 +56,6 @@ fun MainScreen(vm: MainScreenViewModel, goToEventEntryScreen: (EventEntry?) -> U
             AddEventButton(
                 onClick = remember {
                     {
-                        Log.d("vm_actions_0", "click")
                         vm.obtainEvent(MainScreenEvent.GoToEntryEvent(null))
                     }
                 }
