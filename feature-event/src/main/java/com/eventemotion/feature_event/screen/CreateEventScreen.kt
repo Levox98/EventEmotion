@@ -64,11 +64,13 @@ fun CreateEventScreen(vm: CreateEventScreenViewModel, navController: NavHostCont
         }
     ) { paddingValues ->
         LazyColumn(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp)
         ) {
             item {
                 TextField(
-                    modifier = Modifier.padding(top = paddingValues.calculateTopPadding()),
+                    modifier = Modifier
+                        .padding(top = paddingValues.calculateTopPadding())
+                        .fillMaxWidth(),
                     value = name,
                     onValueChange = vm::changeName,
                     placeholder = {
@@ -77,6 +79,7 @@ fun CreateEventScreen(vm: CreateEventScreenViewModel, navController: NavHostCont
                 )
                 Spacer(modifier = Modifier.requiredHeight(10.dp))
                 TextField(
+                    modifier = Modifier.fillMaxWidth(),
                     value = feeling,
                     onValueChange = vm::changeFeeling,
                     placeholder = {
@@ -85,7 +88,9 @@ fun CreateEventScreen(vm: CreateEventScreenViewModel, navController: NavHostCont
                 )
                 Spacer(modifier = Modifier.requiredHeight(10.dp))
                 TextField(
-                    modifier = Modifier.padding(bottom = paddingValues.calculateBottomPadding()),
+                    modifier = Modifier
+                        .padding(bottom = paddingValues.calculateBottomPadding())
+                        .fillMaxWidth(),
                     value = thought,
                     onValueChange = vm::changeThought,
                     placeholder = {
