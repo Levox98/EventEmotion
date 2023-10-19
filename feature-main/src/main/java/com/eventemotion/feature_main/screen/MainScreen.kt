@@ -87,7 +87,7 @@ fun MainScreen(vm: MainScreenViewModel, navController: NavHostController) {
                         data = item,
                         onClick = remember(item) {
                             {
-                                vm.obtainEvent(MainScreenEvent.GoToCreateEntryEvent)
+                                //vm.obtainEvent(MainScreenEvent.GoToCreateEntryEvent)
                             }
                         }
                     )
